@@ -3,11 +3,15 @@ package com.example.getchatt.presentation
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -36,14 +40,16 @@ fun GHomeScreen() {
                 .height(
                     LocalConfiguration.current.screenHeightDp.dp / 2
                 )
-                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+                .width(LocalConfiguration.current.screenWidthDp.dp - 10.dp)
         )
-        Row( modifier = Modifier
-            .fillMaxWidth()
-            .height(LocalConfiguration.current.screenHeightDp.dp / 9)
-            .background(color = White),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+        Button(
+            onClick = {}, modifier = Modifier
+                .clip(RoundedCornerShape(40.dp))
+                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+                .height(LocalConfiguration.current.screenHeightDp.dp / 10),
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = White
+            )
         ) {
             Text(
                 text = "Let's Get Started",
