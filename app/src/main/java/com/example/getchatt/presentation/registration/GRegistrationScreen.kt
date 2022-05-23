@@ -38,7 +38,7 @@ private fun ChattingGroup () {
         compositionResult.value,
         isPlaying = true,
         iterations = LottieConstants.IterateForever,
-        speed = 1.0f
+        speed = 0.9f
     )
 
     LottieAnimation(compositionResult.value, progress)
