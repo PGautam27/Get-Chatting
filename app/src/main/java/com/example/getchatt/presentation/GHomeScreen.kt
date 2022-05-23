@@ -54,6 +54,7 @@ fun GHomeScreen() {
                 )
             )
         }
+        ChattingGuys()
     }
 }
 
