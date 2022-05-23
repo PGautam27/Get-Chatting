@@ -16,6 +16,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
+import com.example.getchatt.presentation.registration.GRegistrationScreen
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.GetChattTheme
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -40,7 +41,10 @@ fun Navigation() {
         composable(
             Screens.GHomeScreen.route,
         ){
-            GHomeScreen()
+            GHomeScreen(navController)
+        }
+        composable(Screens.GRegistrationScreen.route){
+            GRegistrationScreen()
         }
     }
 }

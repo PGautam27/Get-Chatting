@@ -22,12 +22,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.airbnb.lottie.compose.*
 import com.example.getchatt.R
+import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.example.getchatt.ui.theme.White
 
 
 @Composable
-fun GHomeScreen() {
+fun GHomeScreen(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -45,7 +46,9 @@ fun GHomeScreen() {
                 .width(LocalConfiguration.current.screenWidthDp.dp - 10.dp)
         )
         Button(
-            onClick = {}, modifier = Modifier
+            onClick = {
+                      navController.navigate(Screens.GRegistrationScreen.route)
+            }, modifier = Modifier
                 .clip(RoundedCornerShape(40.dp))
                 .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
                 .height(LocalConfiguration.current.screenHeightDp.dp / 10),
