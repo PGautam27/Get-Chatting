@@ -47,7 +47,7 @@ fun GHomeScreen(navController: NavController) {
         )
         Button(
             onClick = {
-                      
+                      navController.navigate(Screens.GRegistrationScreen.route)
             }, modifier = Modifier
                 .clip(RoundedCornerShape(40.dp))
                 .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
