@@ -20,27 +20,27 @@ fun GRegistrationScreen() {
             .background(Color.Black),
         contentAlignment = Alignment.Center
     ) {
-        ChattingGroup()
+
     }
 }
 
-@Composable
-private fun ChattingGroup () {
-
-    val compositionResult: LottieCompositionResult = rememberLottieComposition(
-        spec = LottieCompositionSpec.RawRes(
-            R.raw.groupchatting
-
-        )
-    )
-
-    val progress by animateLottieCompositionAsState(
-        compositionResult.value,
-        isPlaying = true,
-        iterations = LottieConstants.IterateForever,
-        speed = 0.9f
-    )
-
-    LottieAnimation(compositionResult.value, progress)
-
-}
+//@Composable
+//private fun ChattingGroup () {
+//
+//    val compositionResult: LottieCompositionResult = rememberLottieComposition(
+//        spec = LottieCompositionSpec.RawRes(
+//            R.raw.groupchatting
+//
+//        )
+//    )
+//
+//    val progress by animateLottieCompositionAsState(
+//        compositionResult.value,
+//        isPlaying = true,
+//        iterations = LottieConstants.IterateForever,
+//        speed = 0.9f
+//    )
+//
+//    LottieAnimation(compositionResult.value, progress)
+//
+//}
