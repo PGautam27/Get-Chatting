@@ -3,18 +3,23 @@ package com.example.getchatt.presentation.registration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,11 +28,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.getchatt.R
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.example.getchatt.ui.theme.White
+import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
 @Composable
@@ -46,12 +53,12 @@ fun GRegistrationScreen() {
 
 @Composable
 private fun Images() {
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Black),
-        //verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
-        contentAlignment = Alignment.TopCenter
+        horizontalAlignment = Alignment.CenterHorizontally
+        //contentAlignment = Alignment.TopCenter
     ){
         Image(
             painter = painterResource(id = R.drawable.gettochatt),
@@ -60,9 +67,76 @@ private fun Images() {
                 .height(LocalConfiguration.current.screenHeightDp.dp / 1.8f)
                 .fillMaxWidth()
         )  
-        Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp/50))
-
+        Text(text = "Already have an Account SIGN IN", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(24).sp), fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
+        Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp/45))
+        LoginSwipe()
     }
+}
+
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun LoginSwipe() {
+    val squareSize = LocalConfiguration.current.screenWidthDp.dp - 40.dp
+    val swipeAbleState = rememberSwipeableState(initialValue = 0)
+    val sizePx = with(LocalDensity.current) { squareSize.toPx() }
+    val anchors = mapOf(0f to 0, sizePx to 1, -sizePx to 2)
+
+    Box(
+        modifier = Modifier
+            .clip(RoundedCornerShape(40.dp))
+            .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+            .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+            .background(White)
+            .swipeable(
+                state = swipeAbleState,
+                anchors = anchors,
+                thresholds = { _, _ ->
+                    FractionalThreshold(1.0f)
+                },
+                orientation = Orientation.Horizontal
+            )
+    ){
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            Text(
+                text = "SIGN IN",
+                color = RoyalBlue,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontSize = LocalConfiguration.current.fontScale.times(25).sp
+                )
+            )
+        }
+        Box(
+            modifier = Modifier
+                .offset {
+                    IntOffset(
+                        swipeAbleState.offset.value.roundToInt(), 0
+                    )
+                }
+                .clip(RoundedCornerShape(100.dp))
+                .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                .width(LocalConfiguration.current.screenHeightDp.dp / 11)
+                .border(1.dp, RoyalBlue, RoundedCornerShape(10.dp))
+        ){
+//            Card(
+//                modifier = Modifier
+//                    .fillMaxWidth(),
+//                elevation = 5.dp,
+//                shape = RoundedCornerShape(10.dp)
+//            ) {
+                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier
+                    .fillMaxSize()
+                    .background(
+                        RoyalBlue
+                    ))
+//            }
+        }
+    }
+
 }
 
 @Composable
