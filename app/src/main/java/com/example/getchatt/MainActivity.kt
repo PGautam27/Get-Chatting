@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -16,6 +17,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
+import com.example.getchatt.presentation.login.GLoginScreen
 import com.example.getchatt.presentation.registration.GRegistrationScreen
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.GetChattTheme
@@ -34,6 +36,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
@@ -44,7 +47,12 @@ fun Navigation() {
             GHomeScreen(navController)
         }
         composable(Screens.GRegistrationScreen.route){
-            GRegistrationScreen()
+            GRegistrationScreen(navController)
+        }
+        composable(
+            Screens.GLoginScreen.route
+        ){
+            GLoginScreen()
         }
     }
 }

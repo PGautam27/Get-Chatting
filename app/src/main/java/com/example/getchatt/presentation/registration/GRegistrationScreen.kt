@@ -1,5 +1,6 @@
 package com.example.getchatt.presentation.registration
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,6 +14,7 @@ import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -31,17 +33,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.getchatt.R
+import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.example.getchatt.ui.theme.White
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
 @Composable
-fun GRegistrationScreen() {
+fun GRegistrationScreen(navController: NavController) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    BottomSheetScaffold(sheetContent = { register() }, content = { Images()}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
+    BottomSheetScaffold(sheetContent = { register() }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
         RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)
     }else{
         RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp)
@@ -52,7 +57,7 @@ fun GRegistrationScreen() {
 }
 
 @Composable
-private fun Images() {
+private fun Images(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,13 +74,15 @@ private fun Images() {
         )  
         Text(text = "Already have an Account SIGN IN", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(24).sp), fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp/45))
-        LoginSwipe()
+        LoginSwipe(navController)
     }
 }
 
+@SuppressLint("CoroutineCreationDuringComposition")
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun LoginSwipe() {
+fun LoginSwipe(navController: NavController) {
+    val composableScope = rememberCoroutineScope()
     val squareSize = LocalConfiguration.current.screenWidthDp.dp - 40.dp
     val swipeAbleState = rememberSwipeableState(initialValue = 0)
     val sizePx = with(LocalDensity.current) { squareSize.toPx() }
@@ -122,18 +129,17 @@ fun LoginSwipe() {
                 .width(LocalConfiguration.current.screenHeightDp.dp / 11)
                 .border(1.dp, RoyalBlue, RoundedCornerShape(10.dp))
         ){
-//            Card(
-//                modifier = Modifier
-//                    .fillMaxWidth(),
-//                elevation = 5.dp,
-//                shape = RoundedCornerShape(10.dp)
-//            ) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier
-                    .fillMaxSize()
-                    .background(
-                        RoyalBlue
-                    ))
-//            }
+            Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    RoyalBlue
+                )
+            )
+            composableScope.launch {
+                if (swipeAbleState.offset.value.roundToInt() >= sizePx){
+                    navController.navigate(Screens.GLoginScreen.route)
+                }
+            }
         }
     }
 
