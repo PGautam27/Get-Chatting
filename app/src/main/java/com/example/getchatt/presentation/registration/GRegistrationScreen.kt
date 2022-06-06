@@ -2,6 +2,7 @@ package com.example.getchatt.presentation.registration
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -73,16 +74,16 @@ private fun register() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(LocalConfiguration.current.screenHeightDp.dp/2 + 50.dp)
+            .height(LocalConfiguration.current.screenHeightDp.dp / 2 + 50.dp)
             .background(RoyalBlue),
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Let's Get you Registered", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(28).sp))
-        Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/30))
+        Text(text = "Let's Get you Registered", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(28).sp), fontWeight = FontWeight.Bold)
+        //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
         Text(text = "Enter your email and \n set a password", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(25).sp))
-        Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/30))
+        //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
         OutlinedTextField(
             value = emailValue.value,
             placeholder = { Text(text = "xyz@gmail.com", style = TextStyle(fontSize = 16.sp, color = White))},
@@ -125,5 +126,11 @@ private fun register() {
             ),
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
         )
+        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+            backgroundColor = Color.Transparent,
+            contentColor = White,
+        ), elevation = ButtonDefaults.elevation(0.dp), modifier = Modifier.height(50.dp).width(150.dp).border(2.dp,shape = RoundedCornerShape(20.dp), color = Color.White) ) {
+            Text(text = "REGISTER", fontSize = 16.sp)
+        }
     }
 }
