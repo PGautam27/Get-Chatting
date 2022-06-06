@@ -59,7 +59,9 @@ private fun Images() {
             modifier = Modifier
                 .height(LocalConfiguration.current.screenHeightDp.dp / 1.8f)
                 .fillMaxWidth()
-        )   
+        )  
+        Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp/50))
+
     }
 }
 
@@ -129,7 +131,10 @@ private fun register() {
         Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
             contentColor = White,
-        ), elevation = ButtonDefaults.elevation(0.dp), modifier = Modifier.height(50.dp).width(150.dp).border(2.dp,shape = RoundedCornerShape(20.dp), color = Color.White) ) {
+        ), elevation = ButtonDefaults.elevation(0.dp), modifier = Modifier
+            .height(50.dp)
+            .width(150.dp)
+            .border(2.dp, shape = RoundedCornerShape(20.dp), color = Color.White) ) {
             Text(text = "REGISTER", fontSize = 16.sp)
         }
     }
