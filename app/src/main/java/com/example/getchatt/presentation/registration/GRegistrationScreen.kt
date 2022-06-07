@@ -1,6 +1,7 @@
 package com.example.getchatt.presentation.registration
 
 import android.annotation.SuppressLint
+import androidx.compose.animation.AnimatedContentScope.SlideDirection.Companion.Right
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -18,6 +19,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalConfiguration
@@ -30,6 +32,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TransformedText
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -87,7 +90,9 @@ fun LoginSwipe(navController: NavController) {
     val swipeAbleState = rememberSwipeableState(initialValue = 0)
     val sizePx = with(LocalDensity.current) { squareSize.toPx() }
     val anchors = mapOf(0f to 0, sizePx to 1, -sizePx to 2)
-
+    val x = remember {
+        mutableStateOf(Density(0f))
+    }
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(40.dp))
@@ -120,8 +125,9 @@ fun LoginSwipe(navController: NavController) {
         Box(
             modifier = Modifier
                 .offset {
+                    x.value = this@offset
                     IntOffset(
-                        swipeAbleState.offset.value.roundToInt(), 0
+                        x = swipeAbleState.offset.value.roundToInt(), 0
                     )
                 }
                 .clip(RoundedCornerShape(100.dp))
@@ -136,7 +142,7 @@ fun LoginSwipe(navController: NavController) {
                 )
             )
             composableScope.launch {
-                if (swipeAbleState.offset.value.roundToInt() >= sizePx){
+                if (x.value.density.equals(squareSize.value)){
                     navController.navigate(Screens.GLoginScreen.route)
                 }
             }
