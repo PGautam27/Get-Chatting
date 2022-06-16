@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "127681302034",
+    "project_id": "get-chatt",
+    "storage_bucket": "get-chatt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127681302034:android:2c67a85f75caa6980c92cb",
+        "android_client_info": {
+          "package_name": "com.gautam.getchatt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127681302034-qgrdckddedihhhd1darnaerfmok3rsdv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcu9KKFXqgej5RRpOodkL2rgCiu2cnJQY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127681302034-qgrdckddedihhhd1darnaerfmok3rsdv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
