@@ -6,15 +6,13 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.Divider
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
@@ -96,7 +94,7 @@ fun GLoginScreen() {
                 keyboardType = KeyboardType.Email
             ),
             modifier = Modifier
-                .width(LocalConfiguration.current.screenWidthDp.dp - 100.dp)
+                .width(LocalConfiguration.current.screenWidthDp.dp - 60.dp)
                 .height(LocalConfiguration.current.screenHeightDp.dp / 11),
             shape = RoundedCornerShape(30.dp)
         )
@@ -114,10 +112,11 @@ fun GLoginScreen() {
             ),
             visualTransformation = if (passwordHide.value) PasswordVisualTransformation() else VisualTransformation.None,
             modifier = Modifier
-                .width(LocalConfiguration.current.screenWidthDp.dp - 100.dp)
+                .width(LocalConfiguration.current.screenWidthDp.dp - 60.dp)
                 .height(LocalConfiguration.current.screenHeightDp.dp / 11),
             shape = RoundedCornerShape(30.dp),
-            textStyle = TextStyle(fontSize = if (passwordHide.value) 25.sp else 18.sp),
+            maxLines = 1,
+            textStyle = TextStyle(fontSize = if (passwordHide.value) 28.sp else 18.sp),
             trailingIcon = { Image(painter = painterResource(id = painterValue.value), contentDescription = null, modifier = Modifier
                 .clickable {
                     passwordHide.value = !passwordHide.value
@@ -128,5 +127,27 @@ fun GLoginScreen() {
                 }
                 .size(28.dp))}
         )
+        Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/48))
+        Button(
+            onClick = { /*TODO*/ },
+            colors = ButtonDefaults.buttonColors(
+                backgroundColor = RoyalBlue
+            ),
+            modifier = Modifier
+                .clip(RoundedCornerShape(30.dp))
+                .width(LocalConfiguration.current.screenWidthDp.dp - 60.dp)
+                .height(
+                    LocalConfiguration.current.screenHeightDp.dp / 11
+                )
+        ) {
+            Text(
+                text = "SIGN IN",
+                style = TextStyle(
+                    fontSize = 25.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White
+                )
+            )
+        }
     }
 }
