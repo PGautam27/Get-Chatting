@@ -42,7 +42,7 @@ fun GLoginScreen() {
     val painterValue = remember {
         mutableStateOf(R.drawable.visibile)
     }
-
+    val signinList = listOf(R.drawable.google,R.drawable.git)
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -185,7 +185,19 @@ fun GLoginScreen() {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-
+            signinList.forEachIndexed{ i, painterId ->
+                Box(
+                    modifier = Modifier
+                        .size(70.dp)
+                        .clip(RoundedCornerShape(35.dp))
+                        .background(
+                            Color.White
+                        )
+                ){
+                    Image(painter = painterResource(id = painterId), contentDescription = null, modifier = Modifier.size(50.dp).align(
+                        Alignment.Center))
+                }
+            }
         }
     }
 }
