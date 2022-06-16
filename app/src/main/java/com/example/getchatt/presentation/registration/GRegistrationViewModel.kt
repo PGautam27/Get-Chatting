@@ -13,9 +13,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlin.coroutines.coroutineContext
 
 class GRegistrationViewModel:ViewModel() {
+
     private val auth = Firebase.auth
+
     private val _sucessOrfail = MutableLiveData<Boolean>()
+
     val sucessOrfail: LiveData<Boolean> = _sucessOrfail
+
     fun register(email: String, password: String,context: AppCompatActivity){
         auth.createUserWithEmailAndPassword(
             email,password
