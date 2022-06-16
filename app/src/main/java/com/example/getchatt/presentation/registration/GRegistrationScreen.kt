@@ -1,10 +1,11 @@
 package com.example.getchatt.presentation.registration
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedContentScope.SlideDirection.Companion.Right
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,8 +30,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.TransformedText
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
@@ -119,13 +118,15 @@ fun LoginSwipe(navController: NavController) {
                 style = TextStyle(
                     fontWeight = FontWeight.Bold,
                     fontSize = LocalConfiguration.current.fontScale.times(25).sp
-                )
+                ),
+                modifier = Modifier.clickable {
+                    navController.navigate(Screens.GLoginScreen.route)
+                }
             )
         }
         Box(
             modifier = Modifier
                 .offset {
-                    x.value = this@offset
                     IntOffset(
                         x = swipeAbleState.offset.value.roundToInt(), 0
                     )
@@ -141,11 +142,6 @@ fun LoginSwipe(navController: NavController) {
                     RoyalBlue
                 )
             )
-            composableScope.launch {
-                if (x.value.density.equals(squareSize.value)){
-                    navController.navigate(Screens.GLoginScreen.route)
-                }
-            }
         }
     }
 
