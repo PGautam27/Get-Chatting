@@ -1,6 +1,5 @@
 package com.example.getchatt.presentation.registration
 
-import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,8 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlin.coroutines.coroutineContext
 
 class GRegistrationViewModel:ViewModel() {
 
