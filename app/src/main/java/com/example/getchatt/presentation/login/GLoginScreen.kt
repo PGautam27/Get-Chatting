@@ -42,6 +42,7 @@ fun GLoginScreen() {
     val painterValue = remember {
         mutableStateOf(R.drawable.visibile)
     }
+
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -148,6 +149,43 @@ fun GLoginScreen() {
                     color = Color.White
                 )
             )
+        }
+        Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/48))
+        Row(
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Divider(
+                Modifier
+                    .width(LocalConfiguration.current.screenWidthDp.dp / 4)
+                    .height(2.dp)
+                    .background(
+                        RoyalBlue
+                    )
+            )
+            Text(
+                text = "  Or Sign In With  ", style = TextStyle(
+                    color = Color.White,
+                    fontSize = LocalConfiguration.current.fontScale.times(17).sp
+                )
+            )
+            Divider(
+                Modifier
+                    .width(LocalConfiguration.current.screenWidthDp.dp / 4)
+                    .height(2.dp)
+                    .background(
+                        RoyalBlue
+                    )
+            )
+        }
+        Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/50))
+        Row(
+            modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 150.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+
         }
     }
 }
