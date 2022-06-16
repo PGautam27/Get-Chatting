@@ -52,7 +52,7 @@ fun Navigation() {
         composable(
             Screens.GLoginScreen.route
         ){
-            GLoginScreen()
+            GLoginScreen(navController)
         }
     }
 }
