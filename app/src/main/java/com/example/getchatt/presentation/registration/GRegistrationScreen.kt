@@ -2,6 +2,7 @@ package com.example.getchatt.presentation.registration
 
 import android.annotation.SuppressLint
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.IntOffset
@@ -40,16 +42,17 @@ import com.example.getchatt.R
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.example.getchatt.ui.theme.White
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
 @Composable
-fun GRegistrationScreen(navController: NavController,context:ComponentActivity,viewModel: GRegistrationViewModel = GRegistrationViewModel()) {
-    val listenSuccess by viewModel.sucessOrfail.observeAsState(initial = false)
+fun GRegistrationScreen(navController: NavController,context:ComponentActivity) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    BottomSheetScaffold(sheetContent = { register(listenSuccess,viewModel) }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
+    BottomSheetScaffold(sheetContent = { register(context, navController) }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
         RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)
     }else{
         RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp)
@@ -149,12 +152,13 @@ fun LoginSwipe(navController: NavController) {
 }
 
 @Composable
-private fun register(successOrNot : Boolean,viewModel: GRegistrationViewModel) {
+private fun register(context: ComponentActivity,navController: NavController) {
+    val auth = Firebase.auth
     val emailValue = remember {
-        mutableStateOf("")
+        mutableStateOf(TextFieldValue())
     }
     val passwordValue = remember {
-        mutableStateOf("")
+        mutableStateOf(TextFieldValue())
     }
     Column(
         modifier = Modifier
@@ -212,7 +216,25 @@ private fun register(successOrNot : Boolean,viewModel: GRegistrationViewModel) {
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
         )
         Button(onClick = {
-
+//                viewModel.register( email = emailValue.value.trim(), password = passwordValue.value.trim(), context = context )
+//                if (successOrNot){
+//                    navController.navigate(Screens.GLoginScreen.route)
+//                }
+            auth.createUserWithEmailAndPassword(
+                emailValue.value.text.trim(), passwordValue.value.text.trim()
+            ).addOnCompleteListener(context){task ->
+                if (task.isSuccessful){
+                    Log.d("AUTH", "Success")
+                    navController.navigate(Screens.GLoginScreen.route)
+                }
+                else{
+                    Log.w("SignUpWithEmail:Failure", task.exception)
+                    Toast.makeText(
+                        context, "You Already Have an account Or Wrong credentials",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }, colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
             contentColor = White,
