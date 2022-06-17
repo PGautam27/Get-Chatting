@@ -78,7 +78,7 @@ private fun Images(navController: NavController) {
                 .height(LocalConfiguration.current.screenHeightDp.dp / 1.8f)
                 .fillMaxWidth()
         )  
-        Text(text = "Already have an Account SIGN IN", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(24).sp), fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
+        Text(text = "Already have an Account SIGN IN", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(21).sp), fontWeight = FontWeight.Bold, modifier = Modifier.align(Alignment.CenterHorizontally))
         Spacer(modifier = Modifier.height(LocalConfiguration.current.screenHeightDp.dp/45))
         LoginSwipe(navController)
     }
@@ -100,7 +100,7 @@ fun LoginSwipe(navController: NavController) {
         modifier = Modifier
             .clip(RoundedCornerShape(40.dp))
             .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
-            .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+            .height(LocalConfiguration.current.screenHeightDp.dp / 15)
             .background(White)
             .swipeable(
                 state = swipeAbleState,
@@ -137,7 +137,7 @@ fun LoginSwipe(navController: NavController) {
                 }
                 .clip(RoundedCornerShape(100.dp))
                 .height(LocalConfiguration.current.screenHeightDp.dp / 12)
-                .width(LocalConfiguration.current.screenHeightDp.dp / 11)
+                .width(LocalConfiguration.current.screenHeightDp.dp / 12)
                 .border(1.dp, RoyalBlue, RoundedCornerShape(10.dp))
         ){
             Icon(imageVector = Icons.Default.ArrowForward, contentDescription = null, modifier = Modifier
@@ -169,9 +169,9 @@ private fun register(context: ComponentActivity,navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(text = "Let's Get you Registered", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(28).sp), fontWeight = FontWeight.Bold)
+        Text(text = "Let's Get you Registered", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(26).sp), fontWeight = FontWeight.Bold)
         //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
-        Text(text = "Enter your email and \n set a password", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(25).sp))
+        Text(text = "Enter your email and \n set a password", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(22).sp))
         //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
         OutlinedTextField(
             value = emailValue.value,
