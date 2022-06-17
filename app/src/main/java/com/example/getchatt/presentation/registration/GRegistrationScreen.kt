@@ -2,6 +2,8 @@ package com.example.getchatt.presentation.registration
 
 import android.annotation.SuppressLint
 import android.util.Log
+import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -13,10 +15,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,10 +45,11 @@ import kotlin.math.roundToInt
 
 @ExperimentalMaterialApi
 @Composable
-fun GRegistrationScreen(navController: NavController) {
+fun GRegistrationScreen(navController: NavController,context:ComponentActivity,viewModel: GRegistrationViewModel = GRegistrationViewModel()) {
+    val listenSuccess by viewModel.sucessOrfail.observeAsState(initial = false)
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    BottomSheetScaffold(sheetContent = { register() }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
+    BottomSheetScaffold(sheetContent = { register(listenSuccess,viewModel) }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
         RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)
     }else{
         RoundedCornerShape(topStart = 60.dp, topEnd = 60.dp)
@@ -148,7 +149,7 @@ fun LoginSwipe(navController: NavController) {
 }
 
 @Composable
-private fun register() {
+private fun register(successOrNot : Boolean,viewModel: GRegistrationViewModel) {
     val emailValue = remember {
         mutableStateOf("")
     }
@@ -210,7 +211,9 @@ private fun register() {
             ),
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
         )
-        Button(onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+        Button(onClick = {
+
+        }, colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.Transparent,
             contentColor = White,
         ), elevation = ButtonDefaults.elevation(0.dp), modifier = Modifier

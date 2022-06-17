@@ -2,7 +2,7 @@ package com.example.getchatt.presentation.registration
 
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -17,7 +17,7 @@ class GRegistrationViewModel:ViewModel() {
 
     val sucessOrfail: LiveData<Boolean> = _sucessOrfail
 
-    fun register(email: String, password: String,context: AppCompatActivity){
+    fun register(email: String, password: String,context: ComponentActivity){
         auth.createUserWithEmailAndPassword(
             email,password
         ).addOnCompleteListener(context) { task ->
