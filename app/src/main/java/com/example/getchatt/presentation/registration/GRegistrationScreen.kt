@@ -216,10 +216,6 @@ private fun register(context: ComponentActivity,navController: NavController) {
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
         )
         Button(onClick = {
-//                viewModel.register( email = emailValue.value.trim(), password = passwordValue.value.trim(), context = context )
-//                if (successOrNot){
-//                    navController.navigate(Screens.GLoginScreen.route)
-//                }
             auth.createUserWithEmailAndPassword(
                 emailValue.value.text.trim(), passwordValue.value.text.trim()
             ).addOnCompleteListener(context){task ->

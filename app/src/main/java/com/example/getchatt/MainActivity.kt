@@ -45,7 +45,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         Screens.GLoginScreen.route
                     ){
-                        GLoginScreen(navController)
+                        GLoginScreen(navController,this@MainActivity)
                     }
                 }
             }

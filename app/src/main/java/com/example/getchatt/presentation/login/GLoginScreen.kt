@@ -1,5 +1,7 @@
 package com.example.getchatt.presentation.login
 
+import android.widget.Toast
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -22,20 +24,24 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.getchatt.R
 import com.example.getchatt.ui.theme.RoyalBlue
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 @Composable
-fun GLoginScreen(navController: NavController) {
+fun GLoginScreen(navController: NavController,context : ComponentActivity) {
+    val auth = Firebase.auth
     val emailValue = remember {
-        mutableStateOf("")
+        mutableStateOf(TextFieldValue())
     }
     val passwordValue = remember {
-        mutableStateOf("")
+        mutableStateOf(TextFieldValue())
     }
     val passwordHide = remember {
         mutableStateOf(true)
@@ -131,7 +137,22 @@ fun GLoginScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/48))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    auth.signInWithEmailAndPassword(
+                        emailValue.value.text.trim(),
+                        passwordValue.value.text.trim()
+                    ).addOnCompleteListener(context) { task ->
+                        if(task.isSuccessful){
+                            Toast.makeText(
+                                context, "LOGIN Successful",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        else{
+                            Toast.makeText(context, "Sorry buddy register first",Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = RoyalBlue
                 ),
