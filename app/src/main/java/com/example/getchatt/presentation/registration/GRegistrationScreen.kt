@@ -157,6 +157,9 @@ private fun register(context: ComponentActivity,navController: NavController) {
     val emailValue = remember {
         mutableStateOf(TextFieldValue())
     }
+    val nameValue = remember {
+        mutableStateOf(TextFieldValue())
+    }
     val passwordValue = remember {
         mutableStateOf(TextFieldValue())
     }
@@ -173,6 +176,29 @@ private fun register(context: ComponentActivity,navController: NavController) {
         //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
         Text(text = "Enter your email and \n set a password", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(22).sp))
         //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
+
+        OutlinedTextField(
+            value = nameValue.value,
+            placeholder = { Text(text = "Name", style = TextStyle(fontSize = 16.sp, color = White))},
+            onValueChange = { nameValue.value = it },
+            label = { Text(text = "NAME", style = TextStyle( fontWeight = FontWeight.Bold, fontSize = LocalConfiguration.current.fontScale.times(18).sp))},
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = Color.White,
+                unfocusedBorderColor = Color.White,
+                focusedLabelColor = Color.White,
+                unfocusedLabelColor = Color.White,
+                cursorColor = Color.White,
+                textColor = Color.White,
+                leadingIconColor = Color.White
+            ),
+            textStyle = TextStyle( fontSize = 16.sp),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email
+            ),
+            modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
+        )
+
         OutlinedTextField(
             value = emailValue.value,
             placeholder = { Text(text = "xyz@gmail.com", style = TextStyle(fontSize = 16.sp, color = White))},
@@ -221,6 +247,7 @@ private fun register(context: ComponentActivity,navController: NavController) {
             ).addOnCompleteListener(context){task ->
                 if (task.isSuccessful){
                     Log.d("AUTH", "Success")
+                    addUser(nameValue.value.toString())
                     navController.navigate(Screens.GLoginScreen.route)
                 }
                 else{
@@ -241,4 +268,8 @@ private fun register(context: ComponentActivity,navController: NavController) {
             Text(text = "REGISTER", fontSize = 16.sp)
         }
     }
+}
+
+private fun addUser(userName : String){
+
 }
