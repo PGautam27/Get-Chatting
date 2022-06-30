@@ -94,7 +94,7 @@ dependencies {
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation 'com.google.firebase:firebase-database-ktx'
 
-
+    implementation 'androidx.ui:ui-foundation:0.1.0-dev03'
     //runtime liveDate
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 }

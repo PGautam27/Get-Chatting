@@ -6,77 +6,133 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.getchatt.ui.theme.Purple500
 import com.example.getchatt.ui.theme.RoyalBlue
+import com.example.getchatt.ui.theme.Teal200
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GChattListScreen() {
 
-    var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi")
+    var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi","KD","Thatha")
     val verticalScroll = rememberScrollState()
     Scaffold(topBar = {
         TopAppBar(
             modifier = Modifier
-                .background(Color.Transparent)
-                .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
-                .height(30.dp)
+                .background(Color.Black)
+                .width(LocalConfiguration.current.screenWidthDp.dp)
+                .height(50.dp),
         ) {
             Row(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .background(Color.Black),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.Start
             ) {
-
+                Text(text = "Messages", style = TextStyle(color = Color.White, fontSize = 25.sp), modifier = Modifier.padding(start = 20.dp))
             }
         }
-    }) {
-
-    }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .verticalScroll(verticalScroll),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Spacer(modifier = Modifier.padding(10.dp))
-        li.forEachIndexed { index, s ->
-            Card(
-                onClick = { /*TODO*/ },
-                modifier = Modifier
-                    .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
-                    .height(
-                        LocalConfiguration.current.screenHeightDp.dp / 12
-                    )
-                    .clip(RoundedCornerShape(20.dp)), backgroundColor = RoyalBlue,
+    },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                },
+                shape = RoundedCornerShape(50),
+                backgroundColor = Color.White
             ) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    verticalArrangement = Arrangement.Center,
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = s,
-                        style = TextStyle(color = Color.Black, fontSize = 25.sp),
-                        textAlign = TextAlign.Center,
-                        color = Color.White,
-                        modifier = Modifier.align(Alignment.CenterHorizontally)
-                    )
-                }
+                Icon(Icons.Filled.Home, tint = RoyalBlue, contentDescription = "Add")
             }
-            Spacer(modifier = Modifier.padding(8.dp))
+        },
+        isFloatingActionButtonDocked = true,
+        floatingActionButtonPosition = FabPosition.Center,
+        bottomBar = {
+            BottomAppBar(
+                cutoutShape = RoundedCornerShape(50),
+                content = {
+                    BottomNavigation {
+                        BottomNavigationItem(
+                            selected = true,
+                            onClick = {},
+                            icon = {
+                                Icon(Icons.Filled.Home, contentDescription = "home")
+                            },
+                            label = { Text(text = "Home") },
+                            alwaysShowLabel = false,
+                            modifier = Modifier.background(Color.Black)
+                        )
+
+                        BottomNavigationItem(
+                            selected = true,
+                            onClick = {
+                            },
+                            icon = {
+                                Icon(Icons.Filled.Settings, contentDescription = "setting")
+                            },
+                            label = { Text(text = "Setting") },
+                            alwaysShowLabel = false,
+                            modifier = Modifier.background(Color.Black)
+                        )
+                    }
+                },
+            )
+        }
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+                .verticalScroll(verticalScroll),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            li.forEachIndexed { index, s ->
+                Card(
+                    onClick = { /*TODO*/ },
+                    modifier = Modifier
+                        .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
+                        .height(
+                            LocalConfiguration.current.screenHeightDp.dp / 12
+                        )
+                        .clip(RoundedCornerShape(20.dp)), backgroundColor = RoyalBlue,
+                ) {
+                    Column(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = s,
+                            style = TextStyle(color = Color.Black, fontSize = 25.sp),
+                            textAlign = TextAlign.Center,
+                            color = Color.White,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.padding(8.dp))
+            }
+            Spacer(modifier = Modifier.padding(30.dp))
         }
     }
 }
