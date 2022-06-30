@@ -6,16 +6,14 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Person
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -144,7 +142,30 @@ fun Settings() {
     ) {
         Row(
             modifier = Modifier
-                .clickable { }.padding(top = 10.dp)
+                .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+                .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                .background(Color.Transparent),
+            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start
+        ) {
+            Icon(imageVector = Icons.Default.ArrowBack,
+                contentDescription = null,
+                modifier = Modifier
+                    .clickable { }
+                    .height(30.dp)
+                    .width(30.dp),
+                tint = Color.White
+            )
+            Text(text = "Settings", style = TextStyle(color = Color.White, fontSize = 30.sp), modifier = Modifier.padding(start = 80.dp))
+        }
+        Spacer(modifier = Modifier.padding(5.dp))
+        Divider(modifier = Modifier
+            .width(220.dp)
+            .height(3.dp)
+            .background(RoyalBlue))
+        Spacer(modifier = Modifier.padding(15.dp))
+        Row(
+            modifier = Modifier
+                .clickable { }
                 .height(LocalConfiguration.current.screenHeightDp.dp / 12)
                 .width(
                     LocalConfiguration.current.screenWidthDp.dp - 40.dp
