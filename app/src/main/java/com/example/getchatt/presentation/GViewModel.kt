@@ -17,9 +17,15 @@ class GViewModel(application: Application):AndroidViewModel(application) {
         readUid= idDao.getUid()
     }
 
-    suspend fun deleteUid(){
+    fun deleteUid(){
         viewModelScope.launch(Dispatchers.IO) {
             idDao.deleteUid()
+        }
+    }
+
+    fun addUid(item: IdEntity){
+        viewModelScope.launch(Dispatchers.IO) {
+            idDao.insert(item)
         }
     }
 

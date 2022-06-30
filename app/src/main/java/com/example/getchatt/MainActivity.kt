@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                     composable(
                         Screens.GLoginScreen.route
                     ){
-                        GLoginScreen(navController,this@MainActivity)
+                        GLoginScreen(navController,this@MainActivity,viewModel)
                     }
                     composable(
                         Screens.GChattListScreen.route

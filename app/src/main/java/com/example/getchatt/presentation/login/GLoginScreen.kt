@@ -28,15 +28,19 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.getchatt.R
+import com.example.getchatt.data.cacheUid.IdEntity
+import com.example.getchatt.presentation.GViewModel
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 @Composable
-fun GLoginScreen(navController: NavController,context : ComponentActivity) {
+fun GLoginScreen(navController: NavController,context : ComponentActivity,viewModel: GViewModel) {
     val auth = Firebase.auth
     val emailValue = remember {
         mutableStateOf(TextFieldValue())
@@ -148,6 +152,8 @@ fun GLoginScreen(navController: NavController,context : ComponentActivity) {
                                 context, "LOGIN Successful",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            viewModel.deleteUid()
+                            viewModel.addUid(IdEntity(Firebase.auth.currentUser?.uid!!))
                             navController.navigate(Screens.GChattListScreen.route)
                         }
                         else{
