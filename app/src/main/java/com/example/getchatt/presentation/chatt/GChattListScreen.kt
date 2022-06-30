@@ -1,26 +1,33 @@
 package com.example.getchatt.presentation.chatt
 
-import android.provider.Settings
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.getchatt.MainActivity
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -132,7 +139,8 @@ fun GChattListScreen(navController: NavController) {
 }
 
 @Composable
-fun Settings() {
+fun Settings(navController: NavController, context: MainActivity) {
+    val mAuth = Firebase.auth
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -150,7 +158,9 @@ fun Settings() {
             Icon(imageVector = Icons.Default.ArrowBack,
                 contentDescription = null,
                 modifier = Modifier
-                    .clickable { }
+                    .clickable {
+
+                    }
                     .height(30.dp)
                     .width(30.dp),
                 tint = Color.White
@@ -165,7 +175,28 @@ fun Settings() {
         Spacer(modifier = Modifier.padding(15.dp))
         Row(
             modifier = Modifier
-                .clickable { }
+                .clickable {
+                    FirebaseAuth.getInstance().signOut().apply { navController.navigate(Screens.GRegistrationScreen.route) }
+//                    mAuth.currentUser?.apply {
+//                        delete().addOnCompleteListener(){task ->
+//                            if (task.isSuccessful){
+//                                Log.d("SignOut", "Success")
+//                                Toast.makeText(
+//                                    context, "Successfully Signed Out",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                                navController.navigate(Screens.GRegistrationScreen.route)
+//                            }
+//                            else{
+//                                Log.w("SignOUT:Failure", task.exception)
+//                                Toast.makeText(
+//                                    context, "Sorry SignOut not possible",
+//                                    Toast.LENGTH_SHORT
+//                                ).show()
+//                            }
+//                        }
+//                    }
+                }
                 .height(LocalConfiguration.current.screenHeightDp.dp / 12)
                 .width(
                     LocalConfiguration.current.screenWidthDp.dp - 40.dp
