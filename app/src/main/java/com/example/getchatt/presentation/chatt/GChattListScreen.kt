@@ -25,10 +25,13 @@ fun GChattListScreen() {
 
     var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi")
     val verticalScroll = rememberScrollState()
-
+    Scaffold(topBar = {}) {
+        
+    }
     Column(
         modifier = Modifier
-            .fillMaxSize().background(Color.Black)
+            .fillMaxSize()
+            .background(Color.Black)
             .verticalScroll(verticalScroll),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -41,7 +44,8 @@ fun GChattListScreen() {
                     .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
                     .height(
                         LocalConfiguration.current.screenHeightDp.dp / 12
-                    ).clip(RoundedCornerShape(20.dp)), backgroundColor = RoyalBlue,
+                    )
+                    .clip(RoundedCornerShape(20.dp)), backgroundColor = RoyalBlue,
             ) {
                 Column(
                     modifier = Modifier.fillMaxSize(),
