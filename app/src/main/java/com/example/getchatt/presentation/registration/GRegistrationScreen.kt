@@ -245,7 +245,7 @@ private fun register(context: ComponentActivity,navController: NavController) {
             ).addOnCompleteListener(context){task ->
                 if (task.isSuccessful){
                     Log.d("AUTH", "Success")
-                    addUser(nameValue.value.toString())
+                    addUser(nameValue.value.toString(),emailValue.value.toString(), userId = auth.currentUser?.uid!!)
                     navController.navigate(Screens.GLoginScreen.route)
                 }
                 else{
@@ -268,6 +268,6 @@ private fun register(context: ComponentActivity,navController: NavController) {
     }
 }
 
-private fun addUser(userName : String){
+private fun addUser(userName : String,email:String,userId:String){
 
 }
