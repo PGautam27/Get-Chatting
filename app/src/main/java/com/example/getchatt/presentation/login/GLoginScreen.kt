@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.getchatt.R
+import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -147,6 +148,7 @@ fun GLoginScreen(navController: NavController,context : ComponentActivity) {
                                 context, "LOGIN Successful",
                                 Toast.LENGTH_SHORT
                             ).show()
+                            navController.navigate(Screens.GChattListScreen.route)
                         }
                         else{
                             Toast.makeText(context, "Sorry buddy register first",Toast.LENGTH_SHORT).show()

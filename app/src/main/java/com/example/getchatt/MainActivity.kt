@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
+import com.example.getchatt.presentation.chatt.GChattListScreen
 import com.example.getchatt.presentation.login.GLoginScreen
 import com.example.getchatt.presentation.registration.GRegistrationScreen
 import com.example.getchatt.presentation.screens.Screens
@@ -46,6 +47,11 @@ class MainActivity : ComponentActivity() {
                         Screens.GLoginScreen.route
                     ){
                         GLoginScreen(navController,this@MainActivity)
+                    }
+                    composable(
+                        Screens.GChattListScreen.route
+                    ) {
+                        GChattListScreen()
                     }
                 }
             }
