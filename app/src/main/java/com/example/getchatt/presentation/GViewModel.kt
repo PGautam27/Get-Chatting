@@ -3,10 +3,8 @@ package com.example.getchatt.presentation
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.getchatt.data.cacheUid.IdDB
-import com.example.getchatt.data.cacheUid.IdDao
 import com.example.getchatt.data.cacheUid.IdEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
