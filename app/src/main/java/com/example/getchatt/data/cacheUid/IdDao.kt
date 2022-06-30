@@ -1,4 +1,4 @@
-package com.example.getchatt.data.dto
+package com.example.getchatt.data.cacheUid
 
 import androidx.room.Dao
 import androidx.room.Insert
@@ -7,7 +7,7 @@ import androidx.room.Query
 import com.example.getchatt.data.cacheUid.IdEntity
 
 @Dao
-interface UserDao {
+interface IdDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: IdEntity)
 
