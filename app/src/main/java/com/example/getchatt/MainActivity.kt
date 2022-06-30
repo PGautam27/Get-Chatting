@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
+import com.example.getchatt.presentation.GViewModel
+import com.example.getchatt.presentation.GViewModelFactory
 import com.example.getchatt.presentation.chatt.GChattListScreen
 import com.example.getchatt.presentation.chatt.Settings
 import com.example.getchatt.presentation.login.GLoginScreen
@@ -25,6 +27,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GetChattTheme {
                 BackHandler(enabled = true){ Toast.makeText(this,"", Toast.LENGTH_SHORT).show()}
+                val viewModel = GViewModel(application)
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = Screens.GHomeScreen.route){
                     composable(
@@ -46,7 +49,7 @@ class MainActivity : ComponentActivity() {
                         GChattListScreen(navController)
                     }
                     composable(Screens.Settings.route){
-                        Settings(navController,this@MainActivity)
+                        Settings(navController)
                     }
                 }
             }

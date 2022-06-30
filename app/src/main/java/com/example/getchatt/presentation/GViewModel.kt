@@ -1,9 +1,7 @@
 package com.example.getchatt.presentation
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.getchatt.data.cacheUid.IdDB
 import com.example.getchatt.data.cacheUid.IdEntity
 import kotlinx.coroutines.Dispatchers
@@ -25,4 +23,16 @@ class GViewModel(application: Application):AndroidViewModel(application) {
         }
     }
 
+}
+
+class GViewModelFactory(
+    private val application: Application
+): ViewModelProvider.Factory {
+    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
+        @Suppress("UNCHECKED_CAST")
+        if (modelClass.isAssignableFrom(GViewModel::class.java)) {
+            return GViewModel(application) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
 }
