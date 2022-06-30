@@ -1,5 +1,6 @@
 package com.example.getchatt.presentation.chatt
 
+import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -21,12 +22,14 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun GChattListScreen() {
+fun GChattListScreen(navController: NavController) {
 
     var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi","KD","Thatha")
     val verticalScroll = rememberScrollState()
@@ -79,6 +82,7 @@ fun GChattListScreen() {
                         BottomNavigationItem(
                             selected = true,
                             onClick = {
+                                    navController.navigate(Screens.Settings.route)
                             },
                             icon = {
                                 Icon(Icons.Filled.Settings, contentDescription = "setting")
@@ -127,6 +131,22 @@ fun GChattListScreen() {
                 Spacer(modifier = Modifier.padding(8.dp))
             }
             Spacer(modifier = Modifier.padding(30.dp))
+        }
+    }
+}
+
+@Composable
+fun Settings() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Black)
+            .padding(start = 10.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.Start
+    ) {
+        TextButton(onClick = {}){
+            Text(text = "LOGOUT", modifier = Modifier.padding(start = 15.dp), style = TextStyle(color = Color.White, fontSize = 25.sp))
         }
     }
 }
