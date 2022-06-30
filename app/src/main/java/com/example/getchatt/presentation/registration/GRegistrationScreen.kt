@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -54,6 +55,7 @@ import kotlin.math.roundToInt
 @Composable
 fun GRegistrationScreen(navController: NavController,context:ComponentActivity) {
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState()
+
     val sheetState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
     BottomSheetScaffold(sheetContent = { register(context, navController) }, content = { Images(navController)}, sheetShape = (if (sheetState.isAnimationRunning || sheetState.isVisible){
         RoundedCornerShape(topStart = 0.dp, topEnd = 0.dp)

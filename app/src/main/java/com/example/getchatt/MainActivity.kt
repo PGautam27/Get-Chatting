@@ -1,7 +1,9 @@
 package com.example.getchatt
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.compose.NavHost
@@ -22,6 +24,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             GetChattTheme {
+                BackHandler(enabled = true){ Toast.makeText(this,"", Toast.LENGTH_SHORT).show()}
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = Screens.GHomeScreen.route){
                     composable(

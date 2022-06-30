@@ -139,8 +139,7 @@ fun GChattListScreen(navController: NavController) {
 }
 
 @Composable
-fun Settings(navController: NavController, context: MainActivity) {
-    val mAuth = Firebase.auth
+fun Settings(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -176,7 +175,8 @@ fun Settings(navController: NavController, context: MainActivity) {
         Row(
             modifier = Modifier
                 .clickable {
-                    FirebaseAuth.getInstance().signOut().apply { navController.navigate(Screens.GRegistrationScreen.route) }
+                    FirebaseAuth.getInstance().signOut()
+                    navController.navigate(Screens.GRegistrationScreen.route)
 //                    mAuth.currentUser?.apply {
 //                        delete().addOnCompleteListener(){task ->
 //                            if (task.isSuccessful){
