@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             GetChattTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screens.GChattListScreen.route){
+                NavHost(navController = navController, startDestination = Screens.GHomeScreen.route){
                     composable(
                         Screens.GHomeScreen.route,
                     ){
