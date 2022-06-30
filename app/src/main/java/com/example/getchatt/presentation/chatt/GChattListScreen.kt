@@ -1,11 +1,9 @@
 package com.example.getchatt.presentation.chatt
 
 import android.provider.Settings
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
@@ -140,13 +138,26 @@ fun Settings() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Black)
-            .padding(start = 10.dp),
+            .background(Color.Black),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        TextButton(onClick = {}){
-            Text(text = "LOGOUT", modifier = Modifier.padding(start = 15.dp), style = TextStyle(color = Color.White, fontSize = 25.sp))
+        Row(
+            modifier = Modifier
+                .clickable { }.padding(top = 10.dp)
+                .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                .width(
+                    LocalConfiguration.current.screenWidthDp.dp - 40.dp
+                )
+                .border(width = 2.dp, color = RoyalBlue, shape = RoundedCornerShape(10.dp)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = "LOGOUT",
+                modifier = Modifier.padding(start = 15.dp),
+                style = TextStyle(color = Color.White, fontSize = 25.sp)
+            )
         }
     }
 }
