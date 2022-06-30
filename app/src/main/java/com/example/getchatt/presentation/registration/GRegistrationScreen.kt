@@ -173,9 +173,7 @@ private fun register(context: ComponentActivity,navController: NavController) {
     ) {
 
         Text(text = "Let's Get you Registered", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(26).sp), fontWeight = FontWeight.Bold)
-        //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
         Text(text = "Enter your email and \n set a password", textAlign = TextAlign.Center, style = TextStyle(color = White, fontSize = LocalConfiguration.current.fontScale.times(22).sp))
-        //Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/40))
 
         OutlinedTextField(
             value = nameValue.value,
