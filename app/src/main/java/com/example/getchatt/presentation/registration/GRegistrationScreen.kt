@@ -39,10 +39,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.getchatt.R
+import com.example.getchatt.data.dto.User
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.example.getchatt.ui.theme.White
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
@@ -269,5 +272,8 @@ private fun register(context: ComponentActivity,navController: NavController) {
 }
 
 private fun addUser(userName : String,email:String,userId:String){
+    val firebaseDatabase = Firebase.database
+    val myRef = firebaseDatabase.getReference()
 
+    myRef.child("user").child(userId).setValue(User(userName,email,userId))
 }
