@@ -7,10 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -61,7 +58,7 @@ fun GChattListScreen() {
                 shape = RoundedCornerShape(50),
                 backgroundColor = Color.White
             ) {
-                Icon(Icons.Filled.Home, tint = RoyalBlue, contentDescription = "Add")
+                Icon(Icons.Filled.Home, tint = RoyalBlue, contentDescription = "Home")
             }
         },
         isFloatingActionButtonDocked = true,
@@ -75,9 +72,9 @@ fun GChattListScreen() {
                             selected = true,
                             onClick = {},
                             icon = {
-                                Icon(Icons.Filled.Home, contentDescription = "home")
+                                Icon(Icons.Filled.Person, contentDescription = "Profile")
                             },
-                            label = { Text(text = "Home") },
+                            label = { Text(text = "Profile") },
                             alwaysShowLabel = false,
                             modifier = Modifier.background(Color.Black)
                         )
