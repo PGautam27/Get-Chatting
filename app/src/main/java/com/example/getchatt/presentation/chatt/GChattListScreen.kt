@@ -12,6 +12,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.getchatt.MainActivity
+import com.example.getchatt.data.dto.User
 import com.example.getchatt.presentation.GViewModel
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
@@ -40,15 +43,19 @@ import com.google.firebase.ktx.Firebase
 @Composable
 fun GChattListScreen(navController: NavController) {
 
-    var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi","KD","Thatha")
+    val userList = remember{
+        mutableStateListOf(String())
+    }
 
     val mAuth = FirebaseAuth.getInstance()
     val mDbRef = FirebaseDatabase.getInstance().getReference()
     mDbRef.child("user").addValueEventListener(object : ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
-
-
-
+            userList.clear()
+            for(postSnapshot in snapshot.children){
+                val currentUser = postSnapshot.getValue(User::class.java)
+                userList.add(currentUser!!.name.toString())
+            }
         }
 
         override fun onCancelled(error: DatabaseError) {
@@ -128,7 +135,7 @@ fun GChattListScreen(navController: NavController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            li.forEachIndexed { index, s ->
+            userList.forEachIndexed { index, s ->
                 Card(
                     onClick = { /*TODO*/ },
                     modifier = Modifier
