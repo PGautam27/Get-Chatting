@@ -29,6 +29,10 @@ import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
 
@@ -37,6 +41,21 @@ import com.google.firebase.ktx.Firebase
 fun GChattListScreen(navController: NavController) {
 
     var li = listOf("Gautam","Pritam","Samuel","Niranjan","Karthik","Ajay","Sonal","Srinidhi","KD","Thatha")
+
+    val mAuth = FirebaseAuth.getInstance()
+    val mDbRef = FirebaseDatabase.getInstance().getReference()
+    mDbRef.child("user").addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+
+
+
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            TODO("Not yet implemented")
+        }
+
+    })
     val verticalScroll = rememberScrollState()
     Scaffold(topBar = {
         TopAppBar(
