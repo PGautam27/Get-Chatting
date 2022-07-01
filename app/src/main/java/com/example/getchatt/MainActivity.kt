@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
 import com.example.getchatt.presentation.GViewModel
+import com.example.getchatt.presentation.chatt.GChatScreen
 import com.example.getchatt.presentation.chatt.GChattListScreen
 import com.example.getchatt.presentation.chatt.Settings
 import com.example.getchatt.presentation.login.GLoginScreen
@@ -56,6 +57,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable(Screens.Settings.route){
                         Settings(navController,viewModel)
+                    }
+                    composable(Screens.GChatScreen.route){
+                        GChatScreen()
                     }
                 }
             }
