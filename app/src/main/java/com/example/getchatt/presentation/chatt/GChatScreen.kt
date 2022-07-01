@@ -18,6 +18,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
@@ -56,22 +58,24 @@ fun GChatScreen() {
                 ),
                 textStyle = TextStyle( fontSize = 16.sp),
                 keyboardOptions = KeyboardOptions(
-                    keyboardType = KeyboardType.Phone
+                    keyboardType = KeyboardType.Text
                 ),
                 modifier = Modifier
-                    .width(LocalConfiguration.current.screenWidthDp.dp - 100.dp)
-                    .height(LocalConfiguration.current.screenHeightDp.dp / 11),
+                    .width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
+                    .height(LocalConfiguration.current.screenHeightDp.dp / 12).focusRequester(
+                        FocusRequester()
+                    ),
                 shape = RoundedCornerShape(30.dp)
             )
             Box(
                 modifier = Modifier
-                    .width(LocalConfiguration.current.screenWidthDp.dp / 4)
-                    .height(LocalConfiguration.current.screenHeightDp.dp / 11)
-                    .clip(RoundedCornerShape(20.dp))
+                    .width(LocalConfiguration.current.screenWidthDp.dp / 5)
+                    .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                    .clip(RoundedCornerShape(30.dp))
                     .background(RoyalBlue),
                 contentAlignment = Alignment.Center
             ) {
-                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "send", tint = Color.White, modifier = Modifier.size(15.dp))
+                Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "send", tint = Color.White, modifier = Modifier.size(30.dp))
             }
         }
     }
