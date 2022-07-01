@@ -148,12 +148,16 @@ fun GLoginScreen(navController: NavController,context : ComponentActivity,viewMo
                         passwordValue.value.text.trim()
                     ).addOnCompleteListener(context) { task ->
                         if(task.isSuccessful){
+//                            Toast.makeText(
+//                                context, "LOGIN Successful",
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+                            viewModel.deleteUid()
+                            viewModel.addUid(IdEntity(1,FirebaseAuth.getInstance().currentUser?.uid!!))
                             Toast.makeText(
-                                context, "LOGIN Successful",
+                                context, "${viewModel.readUid.value?.Uid}",
                                 Toast.LENGTH_SHORT
                             ).show()
-                            viewModel.deleteUid()
-                            viewModel.addUid(IdEntity(1,Firebase.auth.currentUser?.uid!!))
                             navController.navigate(Screens.GChattListScreen.route)
                         }
                         else{

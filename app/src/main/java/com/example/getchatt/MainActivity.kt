@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
                 BackHandler(enabled = true){ Toast.makeText(this,"", Toast.LENGTH_SHORT).show()}
                 val viewModel = GViewModel(application)
                 val value = if ((viewModel.readUid.value?.Uid
-                        ?: String()) == FirebaseAuth.getInstance().uid
+                        ?: String()) != FirebaseAuth.getInstance().uid
                 ) {
                     Screens.GHomeScreen.route
                 } else Screens.GChattListScreen.route
