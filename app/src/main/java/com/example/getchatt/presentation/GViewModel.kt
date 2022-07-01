@@ -30,15 +30,3 @@ class GViewModel(application: Application):AndroidViewModel(application) {
     }
 
 }
-
-class GViewModelFactory(
-    private val application: Application
-): ViewModelProvider.Factory {
-    override fun <T: ViewModel?> create(modelClass: Class<T>): T {
-        @Suppress("UNCHECKED_CAST")
-        if (modelClass.isAssignableFrom(GViewModel::class.java)) {
-            return GViewModel(application) as T
-        }
-        throw IllegalArgumentException("Unknown ViewModel class")
-    }
-}

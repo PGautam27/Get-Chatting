@@ -28,8 +28,9 @@ class MainActivity : ComponentActivity() {
             GetChattTheme {
                 BackHandler(enabled = true){ Toast.makeText(this,"", Toast.LENGTH_SHORT).show()}
                 val viewModel = GViewModel(application)
+                var value = if (viewModel.readUid == null) Screens.GHomeScreen.route else Screens.GChattListScreen.route
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screens.GHomeScreen.route){
+                NavHost(navController = navController, startDestination = value){
                     composable(
                         Screens.GHomeScreen.route,
                     ){
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
                         GChattListScreen(navController)
                     }
                     composable(Screens.Settings.route){
-                        Settings(navController)
+                        Settings(navController,viewModel)
                     }
                 }
             }

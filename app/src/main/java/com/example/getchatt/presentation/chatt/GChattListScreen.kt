@@ -21,8 +21,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.getchatt.MainActivity
+import com.example.getchatt.presentation.GViewModel
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.google.firebase.auth.FirebaseAuth
@@ -139,7 +141,7 @@ fun GChattListScreen(navController: NavController) {
 }
 
 @Composable
-fun Settings(navController: NavController) {
+fun Settings(navController: NavController,viewModel: GViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -176,6 +178,7 @@ fun Settings(navController: NavController) {
             modifier = Modifier
                 .clickable {
                     FirebaseAuth.getInstance().signOut()
+                    viewModel.deleteUid()
                     navController.navigate(Screens.GRegistrationScreen.route)
 //                    mAuth.currentUser?.apply {
 //                        delete().addOnCompleteListener(){task ->
