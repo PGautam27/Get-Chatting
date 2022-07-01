@@ -153,7 +153,7 @@ fun GLoginScreen(navController: NavController,context : ComponentActivity,viewMo
                                 Toast.LENGTH_SHORT
                             ).show()
                             viewModel.deleteUid()
-                            viewModel.addUid(IdEntity(Firebase.auth.currentUser?.uid!!))
+                            viewModel.addUid(IdEntity(1,Firebase.auth.currentUser?.uid!!))
                             navController.navigate(Screens.GChattListScreen.route)
                         }
                         else{

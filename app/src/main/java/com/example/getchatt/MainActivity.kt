@@ -11,13 +11,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.getchatt.presentation.GHomeScreen
 import com.example.getchatt.presentation.GViewModel
-import com.example.getchatt.presentation.GViewModelFactory
 import com.example.getchatt.presentation.chatt.GChattListScreen
 import com.example.getchatt.presentation.chatt.Settings
 import com.example.getchatt.presentation.login.GLoginScreen
 import com.example.getchatt.presentation.registration.GRegistrationScreen
 import com.example.getchatt.presentation.screens.Screens
 import com.example.getchatt.ui.theme.GetChattTheme
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,11 @@ class MainActivity : ComponentActivity() {
             GetChattTheme {
                 BackHandler(enabled = true){ Toast.makeText(this,"", Toast.LENGTH_SHORT).show()}
                 val viewModel = GViewModel(application)
-                var value = if (viewModel.readUid == null) Screens.GHomeScreen.route else Screens.GChattListScreen.route
+                val value = if ((viewModel.readUid.value?.Uid
+                        ?: String()) == FirebaseAuth.getInstance().uid
+                ) {
+                    Screens.GHomeScreen.route
+                } else Screens.GChattListScreen.route
                 val navController = rememberNavController()
                 NavHost(navController = navController, startDestination = value){
                     composable(
