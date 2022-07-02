@@ -109,6 +109,7 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
                         mDbRef.child("chats").child(senderRoom.toString()).child("messages").push().setValue(messageObject).addOnSuccessListener {
                             mDbRef.child("chats").child(receiverRoom.toString()).child("messages").push().setValue(messageObject)
                         }
+                        messageValue.value = TextFieldValue("")
 
                     }
                     .width(LocalConfiguration.current.screenWidthDp.dp / 5)
