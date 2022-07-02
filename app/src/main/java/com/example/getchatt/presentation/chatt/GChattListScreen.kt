@@ -32,13 +32,18 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
+data class userInfo(
+    val name: String,
+    val uid : String
+)
+
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun GChattListScreen(navController: NavController) {
 
-    val userList = remember{
-        mutableStateListOf(String())
+    val userList : MutableList<userInfo> = remember{
+        mutableStateListOf()
     }
 
     val mAuth = FirebaseAuth.getInstance()
@@ -50,7 +55,7 @@ fun GChattListScreen(navController: NavController) {
                 val currentUser = postSnapshot.getValue(User::class.java)
 
                 if (mAuth.currentUser?.uid != currentUser?.uid ){
-                    userList.add(currentUser!!.name.toString())
+                    userList.add(userInfo(currentUser!!.name.toString(), currentUser.uid.toString()))
                 }
 
             }
@@ -135,7 +140,7 @@ fun GChattListScreen(navController: NavController) {
         ) {
             userList.forEachIndexed { index, s ->
                 Card(
-                    onClick = { navController.navigate(Screens.GChatScreen.route + "/$s") },
+                    onClick = { navController.navigate(Screens.GChatScreen.route + "/${s.name}" + "/${s.uid}") },
                     modifier = Modifier
                         .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
                         .height(
@@ -149,7 +154,7 @@ fun GChattListScreen(navController: NavController) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = s,
+                            text = s.name!!,
                             style = TextStyle(color = Color.Black, fontSize = 25.sp),
                             textAlign = TextAlign.Center,
                             color = Color.White,

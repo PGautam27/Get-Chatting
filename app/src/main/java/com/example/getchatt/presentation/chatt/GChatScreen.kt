@@ -28,10 +28,14 @@ import androidx.navigation.NavController
 import com.example.getchatt.ui.theme.RoyalBlue
 
 @Composable
-fun GChatScreen(navController:NavController,name:String) {
+fun GChatScreen(navController:NavController,name:String,uid:String) {
     val messageValue = remember {
         mutableStateOf(TextFieldValue())
     }
+
+    val receiverRoom : String? = null
+    val senderRoom : String? = null
+
     Scaffold(
         topBar = {
                  TopAppBar() {
@@ -87,6 +91,9 @@ fun GChatScreen(navController:NavController,name:String) {
             )
             Box(
                 modifier = Modifier
+                    .clickable {
+
+                    }
                     .width(LocalConfiguration.current.screenWidthDp.dp / 5)
                     .height(LocalConfiguration.current.screenHeightDp.dp / 12)
                     .clip(RoundedCornerShape(30.dp))
@@ -126,6 +133,8 @@ fun GChatScreen(navController:NavController,name:String) {
     }
 
 }
+
+
 
 @Composable
 private fun recieve() {
