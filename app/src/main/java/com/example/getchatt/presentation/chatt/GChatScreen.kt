@@ -37,9 +37,9 @@ fun GChatScreen(navController:NavController) {
                  TopAppBar() {
                      Row(
                          modifier = Modifier
-                             .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+                             .width(LocalConfiguration.current.screenWidthDp.dp)
                              .height(LocalConfiguration.current.screenHeightDp.dp / 12)
-                             .background(Color.Transparent),
+                             .background(Color.Black),
                          verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start
                      ) {
                          Icon(imageVector = Icons.Default.ArrowBack,
@@ -103,6 +103,7 @@ fun GChatScreen(navController:NavController) {
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Spacer(modifier =Modifier.padding(bottom = 10.dp))
             Column(modifier = Modifier
                 .height(LocalConfiguration.current.screenHeightDp.dp - 70.dp)
                 .fillMaxWidth()
