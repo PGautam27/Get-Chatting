@@ -1,17 +1,12 @@
 package com.example.getchatt.presentation.chatt
 
-import androidx.compose.foundation.ScrollState
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Icon
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
-import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -29,39 +24,42 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.getchatt.ui.theme.RoyalBlue
 
 @Composable
-fun GChatScreen() {
+fun GChatScreen(navController:NavController) {
     val messageValue = remember {
         mutableStateOf(TextFieldValue())
     }
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Column(modifier = Modifier
-            .height(LocalConfiguration.current.screenHeightDp.dp - 70.dp)
-            .fillMaxWidth()
-            .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom) {
-            repeat(66){
-                Row(modifier = Modifier.align(Alignment.End)) {
-                    send()
-                    Spacer(modifier = Modifier.padding(bottom =55.dp, end = 10.dp))
-                }
-            }
-            repeat(3){
-                recieve()
-            }
-        }
-        Spacer(modifier = Modifier.padding(5.dp))
+    Scaffold(
+        topBar = {
+                 TopAppBar() {
+                     Row(
+                         modifier = Modifier
+                             .width(LocalConfiguration.current.screenWidthDp.dp - 40.dp)
+                             .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                             .background(Color.Transparent),
+                         verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start
+                     ) {
+                         Icon(imageVector = Icons.Default.ArrowBack,
+                             contentDescription = null,
+                             modifier = Modifier
+                                 .clickable {
+                                     navController.popBackStack()
+                                 }
+                                 .height(30.dp)
+                                 .width(30.dp),
+                             tint = Color.White
+                         )
+                         Text(text = "Messages", style = TextStyle(color = Color.White, fontSize = 30.sp), modifier = Modifier.padding(start = 80.dp))
+                     }
+                 }
+        },
+        bottomBar = { BottomAppBar(modifier = Modifier.background(Color.Black)) {
         Row(modifier = Modifier
             .fillMaxWidth()
-            .background(Color.Transparent), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
+            .background(Color.Black), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
             OutlinedTextField(
                 value = messageValue.value,
                 onValueChange = { messageValue.value = it },
@@ -78,7 +76,7 @@ fun GChatScreen() {
                 ),
                 modifier = Modifier
                     .padding(start = 5.dp)
-                    .width(LocalConfiguration.current.screenWidthDp.dp - 83.dp)
+                    .width(LocalConfiguration.current.screenWidthDp.dp - 90.dp)
                     .height(LocalConfiguration.current.screenHeightDp.dp / 12)
                     .focusRequester(
                         FocusRequester()
@@ -96,7 +94,34 @@ fun GChatScreen() {
                 Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "send", tint = Color.White, modifier = Modifier.size(30.dp))
             }
         }
+    }}) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Column(modifier = Modifier
+                .height(LocalConfiguration.current.screenHeightDp.dp - 70.dp)
+                .fillMaxWidth()
+                .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom) {
+                repeat(66){
+                    Row(modifier = Modifier.align(Alignment.End)) {
+                        send()
+                        Spacer(modifier = Modifier.padding(bottom =55.dp, end = 10.dp))
+                    }
+                }
+                repeat(3){
+                    recieve()
+                }
+            }
+            Spacer(modifier = Modifier.padding(35.dp))
+        }
+
     }
+
 }
 
 @Composable

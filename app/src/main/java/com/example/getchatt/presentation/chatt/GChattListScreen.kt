@@ -184,7 +184,7 @@ fun Settings(navController: NavController,viewModel: GViewModel) {
                 contentDescription = null,
                 modifier = Modifier
                     .clickable {
-
+                            navController.popBackStack()
                     }
                     .height(30.dp)
                     .width(30.dp),

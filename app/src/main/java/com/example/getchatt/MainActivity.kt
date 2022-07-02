@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
                     Screens.GHomeScreen.route
                 } else Screens.GChattListScreen.route
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screens.GChatScreen.route){
+                NavHost(navController = navController, startDestination = value){
                     composable(
                         Screens.GHomeScreen.route,
                     ){
@@ -59,7 +59,7 @@ class MainActivity : ComponentActivity() {
                         Settings(navController,viewModel)
                     }
                     composable(Screens.GChatScreen.route){
-                        GChatScreen()
+                        GChatScreen(navController)
                     }
                 }
             }
