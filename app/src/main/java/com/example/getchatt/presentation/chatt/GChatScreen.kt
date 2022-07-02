@@ -50,7 +50,8 @@ fun GChatScreen() {
             .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom) {
             repeat(66){
                 Row(modifier = Modifier.align(Alignment.End)) {
-                    Text(text = "JHIHIHIO", color = Color.White)
+                    send()
+                    Spacer(modifier = Modifier.padding(bottom =55.dp, end = 10.dp))
                 }
             }
             repeat(3){
@@ -102,7 +103,16 @@ fun GChatScreen() {
 private fun recieve() {
     Row(modifier = Modifier
         .clip(RoundedCornerShape(30.dp))
-        .background(Color.White).height(LocalConfiguration.current.screenHeightDp.dp/20), verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "HELLO HOW are you", color = RoyalBlue, fontSize = 15.sp, modifier = Modifier.padding(start = 5.dp, end = 5.dp), fontWeight = FontWeight.Bold)
+        .background(Color.White), verticalAlignment = Alignment.CenterVertically) {
+        Text(text = "HELLO HOW are you", color = RoyalBlue, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
+    }
+}
+
+@Composable
+private fun send() {
+    Row(modifier = Modifier
+        .clip(RoundedCornerShape(30.dp))
+        .background(RoyalBlue), verticalAlignment = Alignment.CenterVertically) {
+        Text(text = "HELLO HOW are you", color = Color.White, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
     }
 }
