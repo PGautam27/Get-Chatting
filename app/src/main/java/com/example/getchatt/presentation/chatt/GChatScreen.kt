@@ -26,15 +26,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.getchatt.ui.theme.RoyalBlue
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
-fun GChatScreen(navController:NavController,name:String,uid:String) {
+fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
     val messageValue = remember {
         mutableStateOf(TextFieldValue())
     }
 
-    val receiverRoom : String? = null
-    val senderRoom : String? = null
+    val senderRoom  = remember {
+        mutableStateOf(receiverUid + FirebaseAuth.getInstance().currentUser!!.uid)
+    }
+    val receiverRoom  = remember {
+        mutableStateOf(FirebaseAuth.getInstance().currentUser!!.uid + receiverUid)
+    }
 
     Scaffold(
         topBar = {
@@ -92,7 +97,7 @@ fun GChatScreen(navController:NavController,name:String,uid:String) {
             Box(
                 modifier = Modifier
                     .clickable {
-
+                        val message = messageValue.value.text.toString()
                     }
                     .width(LocalConfiguration.current.screenWidthDp.dp / 5)
                     .height(LocalConfiguration.current.screenHeightDp.dp / 12)
