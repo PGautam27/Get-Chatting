@@ -9,6 +9,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -28,13 +29,20 @@ import androidx.navigation.NavController
 import com.example.getchatt.data.dto.Message
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
 @Composable
 fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
     val messageValue = remember {
         mutableStateOf(TextFieldValue())
+    }
+
+    val messageList : MutableList<Message> = remember {
+        mutableStateListOf()
     }
 
     val senderUid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -46,6 +54,25 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
     val receiverRoom  = remember {
         mutableStateOf(senderUid + receiverUid)
     }
+
+    mDbRef.child("chats").child(senderRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
+        override fun onDataChange(snapshot: DataSnapshot) {
+
+            messageList.clear()
+
+            for (postSnapshot in snapshot.children){
+                val message = postSnapshot.getValue(Message::class.java)
+                messageList.add(message!!)
+            }
+
+        }
+
+        override fun onCancelled(error: DatabaseError) {
+            TODO("Not yet implemented")
+        }
+
+    })
+
 
     Scaffold(
         topBar = {
@@ -104,11 +131,22 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
                 modifier = Modifier
                     .clickable {
                         val message = messageValue.value.text.toString()
-                        val messageObject = Message(message,senderUid)
+                        val messageObject = Message(message, senderUid)
 
-                        mDbRef.child("chats").child(senderRoom.toString()).child("messages").push().setValue(messageObject).addOnSuccessListener {
-                            mDbRef.child("chats").child(receiverRoom.toString()).child("messages").push().setValue(messageObject)
-                        }
+                        mDbRef
+                            .child("chats")
+                            .child(senderRoom.toString())
+                            .child("messages")
+                            .push()
+                            .setValue(messageObject)
+                            .addOnSuccessListener {
+                                mDbRef
+                                    .child("chats")
+                                    .child(receiverRoom.toString())
+                                    .child("messages")
+                                    .push()
+                                    .setValue(messageObject)
+                            }
                         messageValue.value = TextFieldValue("")
 
                     }
@@ -134,16 +172,18 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
             Column(modifier = Modifier
                 .height(LocalConfiguration.current.screenHeightDp.dp - 70.dp)
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom) {
-                repeat(66){
-                    Row(modifier = Modifier.align(Alignment.End)) {
-                        send()
-                        Spacer(modifier = Modifier.padding(bottom =55.dp, end = 10.dp))
+                .verticalScroll(rememberScrollState()), 
+                verticalArrangement = Arrangement.Bottom) {
+            
+                messageList.forEachIndexed { index, message ->
+                    if (FirebaseAuth.getInstance().currentUser?.uid.equals(message.senderId) ){
+                        send(message.message!!)
+                    }
+                    else {
+                         recieve(message.message!!)
                     }
                 }
-                repeat(3){
-                    recieve()
-                }
+                
             }
             Spacer(modifier = Modifier.padding(35.dp))
         }
@@ -155,19 +195,19 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
 
 
 @Composable
-private fun recieve() {
+private fun recieve(value : String) {
     Row(modifier = Modifier
         .clip(RoundedCornerShape(30.dp))
         .background(Color.White), verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "HELLO HOW are you", color = RoyalBlue, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
+        Text(text = value, color = RoyalBlue, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
     }
 }
 
 @Composable
-private fun send() {
+private fun send(value : String) {
     Row(modifier = Modifier
         .clip(RoundedCornerShape(30.dp))
         .background(RoyalBlue), verticalAlignment = Alignment.CenterVertically) {
-        Text(text = "HELLO HOW are you", color = Color.White, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
+        Text(text = value, color = Color.White, fontSize = 15.sp, modifier = Modifier.padding(start = 8.dp, end = 8.dp, top = 8.dp, bottom = 8.dp), fontWeight = FontWeight.Bold)
     }
 }
