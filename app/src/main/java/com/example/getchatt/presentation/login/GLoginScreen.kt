@@ -143,6 +143,13 @@ fun GLoginScreen(navController: NavController,context : ComponentActivity,viewMo
             Spacer(modifier = Modifier.padding(LocalConfiguration.current.screenHeightDp.dp/48))
             Button(
                 onClick = {
+                    if (emailValue.value.text == "" || passwordValue.value.text == ""){
+                        Toast.makeText(
+                            context, "Sorry, email or password is empty",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@Button
+                    }
                     auth.signInWithEmailAndPassword(
                         emailValue.value.text.trim(),
                         passwordValue.value.text.trim()
