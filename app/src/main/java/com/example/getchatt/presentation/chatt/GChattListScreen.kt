@@ -135,7 +135,7 @@ fun GChattListScreen(navController: NavController) {
         ) {
             userList.forEachIndexed { index, s ->
                 Card(
-                    onClick = { navController.navigate(Screens.GChatScreen.route) },
+                    onClick = { navController.navigate(Screens.GChatScreen.route + "/$s") },
                     modifier = Modifier
                         .width(LocalConfiguration.current.screenWidthDp.dp - 20.dp)
                         .height(

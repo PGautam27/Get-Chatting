@@ -28,7 +28,7 @@ import androidx.navigation.NavController
 import com.example.getchatt.ui.theme.RoyalBlue
 
 @Composable
-fun GChatScreen(navController:NavController) {
+fun GChatScreen(navController:NavController,name:String) {
     val messageValue = remember {
         mutableStateOf(TextFieldValue())
     }
@@ -52,7 +52,9 @@ fun GChatScreen(navController:NavController) {
                                  .width(30.dp),
                              tint = Color.White
                          )
-                         Text(text = "Messages", style = TextStyle(color = Color.White, fontSize = 30.sp), modifier = Modifier.padding(start = 80.dp))
+                         Row(modifier = Modifier.fillMaxSize(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                             Text(text = name, style = TextStyle(color = Color.White, fontSize = 30.sp))
+                         }
                      }
                  }
         },

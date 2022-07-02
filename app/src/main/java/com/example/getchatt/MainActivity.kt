@@ -58,8 +58,9 @@ class MainActivity : ComponentActivity() {
                     composable(Screens.Settings.route){
                         Settings(navController,viewModel)
                     }
-                    composable(Screens.GChatScreen.route){
-                        GChatScreen(navController)
+                    composable(Screens.GChatScreen.route + "/{name}"){
+                        val name = it.arguments?.getString("name")
+                        GChatScreen(navController,name!!)
                     }
                 }
             }
