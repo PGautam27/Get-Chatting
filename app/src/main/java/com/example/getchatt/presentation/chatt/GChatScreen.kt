@@ -57,9 +57,8 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
 
     mDbRef.child("chats").child(senderRoom.toString()).child("messages").addValueEventListener(object : ValueEventListener{
         override fun onDataChange(snapshot: DataSnapshot) {
-
+            
             messageList.clear()
-
             for (postSnapshot in snapshot.children){
                 val message = postSnapshot.getValue(Message::class.java)
                 messageList.add(message!!)
@@ -182,6 +181,7 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
                     else {
                          recieve(message.message!!)
                     }
+                    Spacer(modifier = Modifier.padding(bottom = 25.dp))
                 }
                 
             }
