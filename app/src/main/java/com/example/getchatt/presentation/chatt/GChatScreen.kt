@@ -1,5 +1,6 @@
 package com.example.getchatt.presentation.chatt
 
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -43,6 +44,20 @@ fun GChatScreen() {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Column(modifier = Modifier
+            .height(LocalConfiguration.current.screenHeightDp.dp - 70.dp)
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.Bottom) {
+            repeat(66){
+                Row(modifier = Modifier.align(Alignment.End)) {
+                    Text(text = "JHIHIHIO", color = Color.White)
+                }
+            }
+            repeat(3){
+                recieve()
+            }
+        }
+        Spacer(modifier = Modifier.padding(5.dp))
         Row(modifier = Modifier
             .fillMaxWidth()
             .background(Color.Transparent), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.SpaceBetween) {
@@ -61,8 +76,10 @@ fun GChatScreen() {
                     keyboardType = KeyboardType.Text
                 ),
                 modifier = Modifier
-                    .width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
-                    .height(LocalConfiguration.current.screenHeightDp.dp / 12).focusRequester(
+                    .padding(start = 5.dp)
+                    .width(LocalConfiguration.current.screenWidthDp.dp - 83.dp)
+                    .height(LocalConfiguration.current.screenHeightDp.dp / 12)
+                    .focusRequester(
                         FocusRequester()
                     ),
                 shape = RoundedCornerShape(30.dp)
@@ -78,5 +95,14 @@ fun GChatScreen() {
                 Icon(imageVector = Icons.Default.ArrowForward, contentDescription = "send", tint = Color.White, modifier = Modifier.size(30.dp))
             }
         }
+    }
+}
+
+@Composable
+private fun recieve() {
+    Row(modifier = Modifier
+        .clip(RoundedCornerShape(30.dp))
+        .background(Color.White).height(LocalConfiguration.current.screenHeightDp.dp/20), verticalAlignment = Alignment.CenterVertically) {
+        Text(text = "HELLO HOW are you", color = RoyalBlue, fontSize = 15.sp, modifier = Modifier.padding(start = 5.dp, end = 5.dp), fontWeight = FontWeight.Bold)
     }
 }
