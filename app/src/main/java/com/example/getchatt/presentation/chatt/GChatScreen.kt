@@ -25,8 +25,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.getchatt.data.dto.Message
 import com.example.getchatt.ui.theme.RoyalBlue
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
@@ -34,11 +37,14 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
         mutableStateOf(TextFieldValue())
     }
 
+    val senderUid = FirebaseAuth.getInstance().currentUser!!.uid
+    val mDbRef = FirebaseDatabase.getInstance().getReference()
+
     val senderRoom  = remember {
-        mutableStateOf(receiverUid + FirebaseAuth.getInstance().currentUser!!.uid)
+        mutableStateOf(receiverUid + senderUid)
     }
     val receiverRoom  = remember {
-        mutableStateOf(FirebaseAuth.getInstance().currentUser!!.uid + receiverUid)
+        mutableStateOf(senderUid + receiverUid)
     }
 
     Scaffold(
@@ -98,6 +104,12 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
                 modifier = Modifier
                     .clickable {
                         val message = messageValue.value.text.toString()
+                        val messageObject = Message(message,senderUid)
+
+                        mDbRef.child("chats").child(senderRoom.toString()).child("messages").push().setValue(messageObject).addOnSuccessListener {
+                            mDbRef.child("chats").child(receiverRoom.toString()).child("messages").push().setValue(messageObject)
+                        }
+
                     }
                     .width(LocalConfiguration.current.screenWidthDp.dp / 5)
                     .height(LocalConfiguration.current.screenHeightDp.dp / 12)
