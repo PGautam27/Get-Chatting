@@ -34,7 +34,12 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
+@OptIn(DelicateCoroutinesApi::class)
 @Composable
 fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
     val messageValue = remember {
@@ -59,10 +64,13 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
         override fun onDataChange(snapshot: DataSnapshot) {
             
             messageList.clear()
-            for (postSnapshot in snapshot.children){
-                val message = postSnapshot.getValue(Message::class.java)
-                messageList.add(message!!)
+            GlobalScope.launch(Dispatchers.IO) {
+                for (postSnapshot in snapshot.children){
+                    val message = postSnapshot.getValue(Message::class.java)
+                    messageList.add(message!!)
+                }
             }
+
 
         }
 
