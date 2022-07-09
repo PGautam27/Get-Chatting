@@ -245,6 +245,13 @@ private fun register(context: ComponentActivity,navController: NavController) {
             modifier = Modifier.width(LocalConfiguration.current.screenWidthDp.dp - 80.dp)
         )
         Button(onClick = {
+            if (emailValue.value.text == "" || passwordValue.value.text == "" || nameValue.value.text == ""){
+                Toast.makeText(
+                    context, "Sorry, email or password or name is empty",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@Button
+            }
             auth.createUserWithEmailAndPassword(
                 emailValue.value.text.trim(), passwordValue.value.text.trim()
             ).addOnCompleteListener(context){task ->

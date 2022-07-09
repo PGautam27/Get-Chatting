@@ -203,7 +203,7 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
 
 
 @Composable
-private fun recieve(value : String) {
+private fun send(value : String) {
     Row(modifier = Modifier
         .clip(RoundedCornerShape(30.dp))
         .background(Color.White), verticalAlignment = Alignment.CenterVertically) {
@@ -212,7 +212,7 @@ private fun recieve(value : String) {
 }
 
 @Composable
-private fun send(value : String) {
+private fun recieve(value : String) {
     Row(modifier = Modifier
         .clip(RoundedCornerShape(30.dp))
         .background(RoyalBlue), verticalAlignment = Alignment.CenterVertically) {
