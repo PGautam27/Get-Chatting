@@ -184,7 +184,7 @@ fun GChatScreen(navController:NavController,name:String, receiverUid:String) {
             
                 messageList.forEachIndexed { index, message ->
                     if (FirebaseAuth.getInstance().currentUser?.uid.equals(message.senderId) ){
-                            Row(modifier = Modifier.fillMaxWidth(),horizontalArrangement = Arrangement.End) {
+                            Row(modifier = Modifier.fillMaxWidth().padding(end = 10.dp),horizontalArrangement = Arrangement.End) {
                                 send(message.message!!)
                             }
 
